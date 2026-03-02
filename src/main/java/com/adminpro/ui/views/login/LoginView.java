@@ -3,7 +3,6 @@ package com.adminpro.ui.views.login;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Input;
@@ -24,6 +23,9 @@ import com.vaadin.flow.spring.security.AuthenticationContext;
 @PageTitle("Sign In | Arc Admin")
 @AnonymousAllowed
 public class LoginView extends Div implements BeforeEnterObserver {
+
+    private static final String DEMO_EMAIL = "alice.muller@adminpro.io";
+    private static final String DEMO_PASSWORD = "admin123";
 
     private final AuthenticationContext authenticationContext;
 
@@ -212,6 +214,8 @@ public class LoginView extends Div implements BeforeEnterObserver {
         form.add(buildFormRow());
         form.add(buildSubmitButton());
 
+        Div demoCredentials = buildDemoCredentials();
+
         Div divider = new Div();
         divider.addClassName("or-divider");
         divider.add(
@@ -235,7 +239,53 @@ public class LoginView extends Div implements BeforeEnterObserver {
             "By signing in you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>."
         );
 
-        loginView.add(head, form, divider, ssoRow, footer);
+        loginView.add(head, form, demoCredentials, divider, ssoRow, footer);
+    }
+
+    private Div buildDemoCredentials() {
+        Div box = new Div();
+        box.addClassName("demo-credentials");
+
+        Div head = new Div();
+        head.addClassName("demo-credentials-h");
+        head.add(
+            textSpan("Demo account", "demo-title"),
+            textSpan("quick access", "demo-hint")
+        );
+
+        box.add(
+            head,
+            demoCredentialRow("Email", DEMO_EMAIL),
+            demoCredentialRow("Password", DEMO_PASSWORD)
+        );
+
+        NativeButton fillDemo = simpleButton("Use demo credentials", "demo-fill-btn");
+        fillDemo.addClickListener(event -> getElement().executeJs("""
+            const root = this;
+            const email = root.querySelector('#email');
+            const pw = root.querySelector('#password');
+            if (email) {
+              email.value = $0;
+              email.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            if (pw) {
+              pw.value = $1;
+              pw.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        """, DEMO_EMAIL, DEMO_PASSWORD));
+
+        box.add(fillDemo);
+        return box;
+    }
+
+    private Div demoCredentialRow(String key, String value) {
+        Div row = new Div();
+        row.addClassName("demo-row");
+        row.add(
+            textSpan(key, "demo-key"),
+            textSpan(value, "demo-value")
+        );
+        return row;
     }
 
     private Div buildEmailField() {
