@@ -187,13 +187,11 @@ Use Docker deploy mode and set these env vars:
 
 Optional (recommended) for managed PostgreSQL:
 
-- `SPRING_DATASOURCE_URL=jdbc:postgresql://...`
+- `SPRING_DATASOURCE_URL=jdbc:postgresql://...` (must start with `jdbc:`)
 - `SPRING_DATASOURCE_USERNAME=...`
 - `SPRING_DATASOURCE_PASSWORD=...`
-- `SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver`
-- `SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect`
 
-If datasource vars are not provided, prod profile falls back to file-based H2 for demo use.
+If datasource vars are not provided, prod profile falls back to in-memory H2 for demo use.
 
 ### Render blueprint quick deploy
 
