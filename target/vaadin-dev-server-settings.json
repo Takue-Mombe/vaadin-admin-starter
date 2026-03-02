@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "/home/takue-mombe/Desktop/Vaadin-pro/./src/main/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "/home/takue-mombe/Desktop/Vaadin-pro/./src/main/frontend/generated/jar-resources",
+  "staticOutput": "/home/takue-mombe/Desktop/Vaadin-pro/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "/home/takue-mombe/Desktop/Vaadin-pro/target/classes/META-INF/VAADIN/config",
+  "frontendBundleOutput": "/home/takue-mombe/Desktop/Vaadin-pro/target/classes/META-INF/VAADIN/webapp",
+  "devBundleOutput": "/home/takue-mombe/Desktop/Vaadin-pro/target/dev-bundle/webapp",
+  "devBundleStatsOutput": "/home/takue-mombe/Desktop/Vaadin-pro/target/dev-bundle/config",
+  "jarResourcesFolder": "/home/takue-mombe/Desktop/Vaadin-pro/./src/main/frontend/generated/jar-resources",
+  "themeName": "adminpro",
+  "clientServiceWorkerSource": "/home/takue-mombe/Desktop/Vaadin-pro/target/sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}

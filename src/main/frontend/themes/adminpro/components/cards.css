@@ -1,0 +1,219 @@
+/* ============================================================
+   Admin Pro Kit — Card component styles
+   ============================================================ */
+
+/* ── Base content card ──────────────────────────────────────── */
+.content-card {
+    background: var(--adminpro-card-bg);
+    border-radius: var(--lumo-border-radius-l);
+    box-shadow: var(--lumo-box-shadow-s);
+    padding: var(--lumo-space-l);
+    border: 1px solid var(--lumo-contrast-10pct);
+}
+
+.content-card--flat {
+    box-shadow: none;
+    border: 1px solid var(--lumo-contrast-10pct);
+}
+
+/* ── Stat card ──────────────────────────────────────────────── */
+.stat-card {
+    background: var(--adminpro-card-bg);
+    border-radius: var(--lumo-border-radius-l);
+    box-shadow: var(--lumo-box-shadow-s);
+    padding: var(--lumo-space-l);
+    border: 1px solid var(--lumo-contrast-10pct);
+    display: flex;
+    flex-direction: column;
+    gap: var(--lumo-space-s);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    min-width: 0;
+}
+
+.stat-card:hover {
+    box-shadow: var(--lumo-box-shadow-m);
+    transform: translateY(-2px);
+}
+
+.stat-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stat-card__label {
+    font-size: var(--lumo-font-size-s);
+    font-weight: 500;
+    color: var(--lumo-contrast-60pct);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-card__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--lumo-border-radius-m);
+    background: var(--lumo-primary-color-10pct);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card__icon vaadin-icon {
+    color: var(--lumo-primary-color);
+    width: 18px;
+    height: 18px;
+}
+
+.stat-card__value {
+    font-size: var(--lumo-font-size-2xl);
+    font-weight: 700;
+    color: var(--lumo-contrast-90pct);
+    line-height: 1.15;
+}
+
+.stat-card__trend {
+    font-size: var(--lumo-font-size-s);
+    color: var(--lumo-contrast-50pct);
+}
+
+/* ── Page header ────────────────────────────────────────────── */
+.page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--lumo-space-m);
+    margin-bottom: var(--lumo-space-l);
+    flex-wrap: wrap;
+}
+
+.page-header__text {}
+
+.page-header__title {
+    font-size: var(--lumo-font-size-2xl);
+    font-weight: 700;
+    color: var(--lumo-contrast-90pct);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.page-header__description {
+    font-size: var(--lumo-font-size-m);
+    color: var(--lumo-contrast-60pct);
+    margin-top: var(--lumo-space-xs);
+}
+
+.page-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--lumo-space-s);
+    flex-shrink: 0;
+}
+
+/* ── Top bar ────────────────────────────────────────────────── */
+vaadin-app-layout::part(navbar) {
+    background: #ffffff;
+    border-bottom: 1px solid var(--lumo-contrast-10pct);
+    height: var(--adminpro-topbar-height);
+    padding: 0 var(--lumo-space-l);
+    box-shadow: var(--lumo-box-shadow-xs);
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.topbar__title {
+    font-size: var(--lumo-font-size-l);
+    font-weight: 600;
+    color: var(--lumo-contrast-90pct);
+}
+
+.topbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--lumo-space-s);
+}
+
+.topbar__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--lumo-primary-color);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: var(--lumo-font-size-s);
+    cursor: pointer;
+}
+
+/* ── Status badges ──────────────────────────────────────────── */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.badge--success {
+    background: var(--lumo-success-color-10pct);
+    color: var(--lumo-success-text-color);
+}
+
+.badge--error {
+    background: var(--lumo-error-color-10pct);
+    color: var(--lumo-error-text-color);
+}
+
+.badge--neutral {
+    background: var(--lumo-contrast-10pct);
+    color: var(--lumo-contrast-60pct);
+}
+
+.badge--primary {
+    background: var(--lumo-primary-color-10pct);
+    color: var(--lumo-primary-text-color);
+}
+
+/* ── Page layout wrapper ────────────────────────────────────── */
+.page-content {
+    padding: var(--lumo-space-xl);
+    max-width: var(--adminpro-content-max-width);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--lumo-space-m);
+    margin-bottom: var(--lumo-space-l);
+}
+
+/* ── Form sections ──────────────────────────────────────────── */
+.form-section {
+    margin-bottom: var(--lumo-space-xl);
+}
+
+.form-section__title {
+    font-size: var(--lumo-font-size-l);
+    font-weight: 600;
+    color: var(--lumo-contrast-90pct);
+    margin: 0 0 var(--lumo-space-s) 0;
+    padding-bottom: var(--lumo-space-s);
+    border-bottom: 2px solid var(--lumo-contrast-10pct);
+}
+
+.form-section__subtitle {
+    font-size: var(--lumo-font-size-s);
+    color: var(--lumo-contrast-50pct);
+    margin-bottom: var(--lumo-space-m);
+}
