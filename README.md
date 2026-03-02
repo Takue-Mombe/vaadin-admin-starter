@@ -194,3 +194,12 @@ Optional (recommended) for managed PostgreSQL:
 - `SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect`
 
 If datasource vars are not provided, prod profile falls back to file-based H2 for demo use.
+
+### Render blueprint quick deploy
+
+`render.yaml` is included for one-click blueprint setup on Render.
+
+1. In Render, choose **New +** → **Blueprint**.
+2. Select this GitHub repo (`Takue-Mombe/vaadin-admin-starter`).
+3. Render reads `render.yaml` and provisions the web service.
+4. Open the generated URL when deploy completes.
