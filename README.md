@@ -12,7 +12,7 @@ A Vaadin 24 + Spring Boot 3 admin starter with:
 |---|---|
 | UI | Vaadin 24 Flow |
 | Backend | Spring Boot 3.2 |
-| Database | H2 (in-memory for dev) |
+| Database | H2 (dev/demo), PostgreSQL-ready (prod) |
 | ORM | Spring Data JPA / Hibernate |
 | Validation | Jakarta Bean Validation |
 | Security | Spring Security + VaadinWebSecurity |
@@ -164,3 +164,33 @@ java -jar target/adminpro-1.0.0-SNAPSHOT.jar
 ```
 
 The `production` profile builds and bundles Vaadin frontend assets.
+
+## Host it (Docker)
+
+This repo now includes `Dockerfile`, `.dockerignore`, and a `prod` Spring profile.
+
+### Quick run with Docker
+
+```bash
+docker build -t vaadin-admin-pro .
+docker run --rm -p 8080:8080 \
+  -e SPRING_PROFILES_ACTIVE=prod \
+  vaadin-admin-pro
+```
+
+### Deploy to a cloud host (Render/Railway/Fly.io)
+
+Use Docker deploy mode and set these env vars:
+
+- `SPRING_PROFILES_ACTIVE=prod`
+- `PORT` (usually provided automatically by the host)
+
+Optional (recommended) for managed PostgreSQL:
+
+- `SPRING_DATASOURCE_URL=jdbc:postgresql://...`
+- `SPRING_DATASOURCE_USERNAME=...`
+- `SPRING_DATASOURCE_PASSWORD=...`
+- `SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver`
+- `SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect`
+
+If datasource vars are not provided, prod profile falls back to file-based H2 for demo use.

@@ -1,0 +1,12 @@
+.git
+.idea
+.vscode
+node_modules
+target
+build
+out
+
+src/main/frontend/generated
+src/main/bundles
+
+*.log
