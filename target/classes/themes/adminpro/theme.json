@@ -1,4 +1,0 @@
-{
-  "lumoImports": ["typography", "color", "sizing", "spacing", "style", "utility"],
-  "documentCss": ["styles.css"]
-}

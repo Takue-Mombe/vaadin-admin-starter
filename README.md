@@ -1,9 +1,10 @@
-# Vaadin Admin Pro Kit
+# Vaadin Admin Pro Kit (Arc UI)
 
-A professional **Vaadin 24 + Spring Boot 3** admin UI starter template.
-Clone, run, and build on top of it.
-
----
+A Vaadin 24 + Spring Boot 3 admin starter with:
+- Arc-themed responsive UI
+- Route-based app shell (sidebar + topbar)
+- Full CRUD pages for core admin modules
+- Custom login experience + Spring Security authentication
 
 ## Stack
 
@@ -11,152 +12,149 @@ Clone, run, and build on top of it.
 |---|---|
 | UI | Vaadin 24 Flow |
 | Backend | Spring Boot 3.2 |
-| Database | H2 (dev) / swap for Postgres in prod |
+| Database | H2 (in-memory for dev) |
 | ORM | Spring Data JPA / Hibernate |
 | Validation | Jakarta Bean Validation |
-| Security | Spring Security (public routes for MVP) |
+| Security | Spring Security + VaadinWebSecurity |
 | Java | 17+ |
 | Build | Maven |
 
----
+## Features
 
-## How to run
+- Arc visual design system (Fraunces + DM Sans, responsive layout, light/dark theme)
+- Custom login page (`/login`) with branded split layout and client-side validation
+- Authenticated app routes with Vaadin access annotations
+- Profile management in Settings (`/settings`) for current authenticated user
+- CRUD modules:
+  - Analytics
+  - Users
+  - Orders
+  - Products
+  - Messages
+  - Reports
 
-**Prerequisites:** Java 17+, Maven 3.8+
+## Run locally
+
+Prerequisites:
+- Java 17+
+- Maven 3.8+
 
 ```bash
-# Clone and enter the directory
-cd adminpro
-
-# Start in development mode (Vaadin DevTools + live reload)
-./mvnw spring-boot:run
-
-# Or with system Maven
-mvn spring-boot:run
+mvn clean spring-boot:run
 ```
 
-Open **http://localhost:8080** — you'll land on the Dashboard.
+Open:
+- App: `http://localhost:8080`
+- Login: `http://localhost:8080/login`
 
-**H2 console:** http://localhost:8080/h2-console  
-JDBC URL: `jdbc:h2:mem:adminprodb`  Username: `sa`  Password: *(empty)*
+## Demo credentials
 
----
+Seeded on startup (`spring.jpa.hibernate.ddl-auto=create-drop`):
 
-## Pages
+- Username: `alice.muller@adminpro.io`
+- Password: `admin123`
+- Role: `ADMIN`
 
-| Route | View | Description |
+You can change email/password from `http://localhost:8080/settings`.
+
+## H2 console
+
+- URL: `http://localhost:8080/h2-console`
+- JDBC URL: `jdbc:h2:mem:adminprodb`
+- Username: `sa`
+- Password: *(empty)*
+
+Note: `/h2-console/**` is restricted to `ADMIN` in security config.
+
+## Routes
+
+| Route | View | Purpose |
 |---|---|---|
-| `/` or `/dashboard` | `DashboardView` | Stat cards + recent activity grid |
-| `/users` | `UsersView` | Searchable CRUD grid + add/edit dialog |
-| `/settings` | `SettingsView` | Profile form + preference toggles |
+| `/login` | `LoginView` | Custom sign-in page |
+| `/` or `/dashboard` | `DashboardView` | KPI cards + charts + activity |
+| `/analytics` | `AnalyticsView` | Analytics metric CRUD |
+| `/users` | `UsersView` | User CRUD |
+| `/orders` | `OrdersView` | Order CRUD |
+| `/products` | `ProductsView` | Product CRUD |
+| `/messages` | `MessagesView` | Support message CRUD |
+| `/reports` | `ReportsView` | Report config CRUD |
+| `/settings` | `SettingsView` | Current-user profile + preferences |
 
----
+## Security model
+
+- Security is configured in `src/main/java/com/adminpro/security/SecurityConfig.java`.
+- `setLoginView(http, LoginView.class)` enables browser login page flow.
+- `http.httpBasic(...)` remains available for API/tooling use.
+- Users are loaded from DB by `AppUserDetailsService`.
+- Passwords are BCrypt-hashed (`PasswordEncoder` bean).
+
+Vaadin route access is enforced with annotations (`@PermitAll` on app views, `@AnonymousAllowed` on `LoginView`).
 
 ## Project structure
 
-```
+```text
 src/main/java/com/adminpro/
-  AdminProApplication.java          ← Spring Boot entry point
+  AdminProApplication.java
 
   ui/
+    AppShell.java
     layout/
-      MainLayout.java               ← AppLayout shell (@Theme applied here)
-      SideNav.java                  ← Sidebar brand + nav registry + footer
+      MainLayout.java
+      SideNav.java
     views/
+      login/LoginView.java
       dashboard/DashboardView.java
+      analytics/AnalyticsView.java
       users/UsersView.java
+      orders/OrdersView.java
+      products/ProductsView.java
+      messages/MessagesView.java
+      reports/ReportsView.java
       settings/SettingsView.java
-    components/
-      StatCard.java                 ← Metric tile
-      PageHeader.java               ← Title + description + actions slot
-      ContentCard.java              ← Styled container card
-
-  application/
-    DashboardService.java
-    UserService.java
-    SettingsService.java
 
   domain/
-    User.java                       ← JPA entity + BeanValidation
-    Role.java                       ← ADMIN / MANAGER / VIEWER enum
-    DashboardStat.java              ← DTO (not persisted)
-    UserSettings.java               ← JPA entity (id=1 singleton row)
+    User.java
+    UserSettings.java
+    AnalyticsMetric.java
+    OrderRecord.java
+    ProductItem.java
+    SupportMessage.java
+    ReportConfig.java
+    Role.java
+
+  application/
+    UserService.java
+    SettingsService.java
+    DashboardService.java
+    AnalyticsService.java
+    OrderService.java
+    ProductService.java
+    MessageService.java
+    ReportService.java
 
   infrastructure/
-    repo/UserRepository.java
-    repo/UserSettingsRepository.java
-    seed/DevDataSeeder.java         ← Seeds 10 demo users on startup
+    repo/...
+    seed/DevDataSeeder.java
 
   security/
-    SecurityConfig.java             ← All routes public (MVP)
+    SecurityConfig.java
+    AppUserDetailsService.java
+    CurrentUserService.java
 
-src/main/resources/
-  application.properties
-  themes/adminpro/
-    styles.css                      ← Root Lumo token overrides + Inter font
-    theme.json
-    components/
-      sidebar.css
-      cards.css
+src/main/frontend/themes/adminpro/
+  styles.css
+  theme.json
+  components/
+    sidebar.css
+    cards.css
+    login.css
 ```
 
----
+## Seed data behavior
 
-## How to add a new page
-
-1. Create a new view class:
-   ```java
-   @Route(value = "reports", layout = MainLayout.class)
-   @PageTitle("Reports | AdminPro")
-   public class ReportsView extends Div {
-       public ReportsView() {
-           addClassName("page-content");
-           add(new PageHeader("Reports", "Analyse your data."));
-           // ... your content
-       }
-   }
-   ```
-
-2. Register it in **`SideNav.java`** — add one line to `NAV_ITEMS`:
-   ```java
-   new NavEntry("Reports", ReportsView.class, VaadinIcon.CHART)
-   ```
-
-That's it. Navigation, active-link highlighting, and the topbar all update automatically.
-
----
-
-## Swap to a real database (Postgres)
-
-1. Replace the H2 dependency in `pom.xml` with:
-   ```xml
-   <dependency>
-       <groupId>org.postgresql</groupId>
-       <artifactId>postgresql</artifactId>
-   </dependency>
-   ```
-
-2. Update `application.properties`:
-   ```properties
-   spring.datasource.url=jdbc:postgresql://localhost:5432/adminpro
-   spring.datasource.username=your_user
-   spring.datasource.password=your_pass
-   spring.jpa.hibernate.ddl-auto=update
-   ```
-
----
-
-## Add login (Phase 2)
-
-1. Create a `LoginView` extending `Div` annotated with `@Route("login")`.
-2. In `SecurityConfig`, replace the `anyRequest().permitAll()` line with:
-   ```java
-   setLoginView(http, LoginView.class);
-   ```
-3. Add `@RolesAllowed("ADMIN")` to views that need protection.
-4. Add a `UserDetailsService` bean backed by `UserRepository`.
-
----
+- Seeders run on startup via `DevDataSeeder`.
+- Because schema is `create-drop`, data resets on every restart.
+- Users, settings, analytics, orders, products, messages, and reports are all pre-populated.
 
 ## Production build
 
@@ -165,4 +163,4 @@ mvn package -Pproduction
 java -jar target/adminpro-1.0.0-SNAPSHOT.jar
 ```
 
-The `production` Maven profile bundles all Vaadin frontend assets via `build-frontend`.
+The `production` profile builds and bundles Vaadin frontend assets.

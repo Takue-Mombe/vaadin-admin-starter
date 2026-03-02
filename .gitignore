@@ -1,0 +1,23 @@
+node_modules/
+
+# Build artifacts
+target/
+build/
+out/
+
+# Vaadin generated outputs
+src/main/frontend/generated/
+src/main/bundles/
+
+# IDE and OS files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*

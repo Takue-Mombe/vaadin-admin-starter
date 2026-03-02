@@ -1,114 +1,133 @@
-/* ============================================================
-   Admin Pro Kit — Root Theme
-   Overrides Vaadin Lumo design tokens for a polished look.
-   ============================================================ */
+@import './components/sidebar.css';
+@import './components/cards.css';
+@import './components/login.css';
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=DM+Sans:wght@300;400;500&display=swap');
 
-/* ── Google Fonts import ───────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+:root,
+html[data-theme='light'] {
+  --sidebar-w: 220px;
+  --bar-h: 52px;
+  --page-max: 1240px;
+  --radius: 6px;
+  --trans: 200ms ease;
 
-/* ── Lumo token overrides ──────────────────────────────────── */
-html {
-    /* Typography */
-    --lumo-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --lumo-font-size-s:  0.8125rem;   /* 13px */
-    --lumo-font-size-m:  0.9375rem;   /* 15px */
-    --lumo-font-size-l:  1.0625rem;   /* 17px */
-    --lumo-font-size-xl: 1.25rem;     /* 20px */
-    --lumo-font-size-2xl:1.625rem;    /* 26px */
+  --ink: #1a1917;
+  --ink2: #6b6860;
+  --ink3: #b0ada6;
+  --paper: #f7f6f3;
+  --card: #ffffff;
+  --line: #e8e5df;
+  --line2: #d4d0c8;
 
-    /* Colour palette – clean blue-indigo primary */
-    --lumo-primary-color:           #4f46e5;
-    --lumo-primary-color-50pct:     rgba(79,70,229,0.5);
-    --lumo-primary-color-10pct:     rgba(79,70,229,0.1);
-    --lumo-primary-text-color:      #4f46e5;
+  --spot: #2d6a4f;
+  --spot-bg: #eef4f1;
+  --spot-dim: rgba(45, 106, 79, 0.12);
+  --up: #2d6a4f;
+  --dn: #c0392b;
+  --warn: #b5691e;
 
-    /* Neutral surface */
-    --lumo-base-color:              #ffffff;
-    --lumo-contrast-5pct:           rgba(0,0,0,0.04);
-    --lumo-contrast-10pct:          rgba(0,0,0,0.08);
-    --lumo-contrast-20pct:          rgba(0,0,0,0.14);
-    --lumo-contrast-50pct:          rgba(0,0,0,0.38);
-    --lumo-contrast-60pct:          rgba(0,0,0,0.52);
-    --lumo-contrast-90pct:          rgba(0,0,0,0.87);
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
 
-    /* Body background slightly off-white */
-    --lumo-tint-5pct:               #f8f9fb;
-
-    /* Border radius */
-    --lumo-border-radius-s:         4px;
-    --lumo-border-radius-m:         8px;
-    --lumo-border-radius-l:         12px;
-
-    /* Spacing */
-    --lumo-space-xs:  0.25rem;
-    --lumo-space-s:   0.5rem;
-    --lumo-space-m:   1rem;
-    --lumo-space-l:   1.5rem;
-    --lumo-space-xl:  2rem;
-
-    /* Shadows */
-    --lumo-box-shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
-    --lumo-box-shadow-s:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
-    --lumo-box-shadow-m:  0 4px 6px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.06);
-    --lumo-box-shadow-l:  0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
-
-    /* Success / Error / Warning */
-    --lumo-success-color:           #16a34a;
-    --lumo-success-text-color:      #15803d;
-    --lumo-success-color-10pct:     rgba(22,163,74,0.1);
-    --lumo-error-color:             #dc2626;
-    --lumo-error-text-color:        #b91c1c;
-    --lumo-error-color-10pct:       rgba(220,38,38,0.1);
-    --lumo-warning-color:           #d97706;
-    --lumo-warning-text-color:      #b45309;
-
-    /* App-specific custom vars */
-    --adminpro-sidebar-width:       240px;
-    --adminpro-topbar-height:       64px;
-    --adminpro-content-max-width:   1200px;
-    --adminpro-card-bg:             #ffffff;
-    --adminpro-page-bg:             #f4f5f7;
+  --lumo-font-family: var(--font-sans);
+  --lumo-border-radius-s: 6px;
+  --lumo-border-radius-m: 6px;
+  --lumo-border-radius-l: 10px;
+  --lumo-primary-color: var(--spot);
+  --lumo-primary-text-color: var(--spot);
+  --lumo-primary-color-10pct: rgba(45, 106, 79, 0.1);
+  --lumo-primary-color-50pct: rgba(45, 106, 79, 0.5);
+  --lumo-success-color: var(--up);
+  --lumo-error-color: var(--dn);
+  --lumo-warning-color: var(--warn);
+  --lumo-base-color: var(--card);
+  --lumo-body-text-color: var(--ink);
+  --lumo-secondary-text-color: var(--ink2);
+  --lumo-tertiary-text-color: var(--ink3);
 }
 
-/* ── Body / global ──────────────────────────────────────────── */
+html[data-theme='dark'] {
+  --ink: #f0ede8;
+  --ink2: #9a968e;
+  --ink3: #5a5850;
+  --paper: #141412;
+  --card: #1e1c1a;
+  --line: #2a2825;
+  --line2: #3a3835;
+  --spot: #4ade80;
+  --spot-bg: rgba(74, 222, 128, 0.08);
+  --spot-dim: rgba(74, 222, 128, 0.15);
+}
+
+html,
 body {
-    background-color: var(--adminpro-page-bg);
-    color: var(--lumo-contrast-90pct);
-    font-family: var(--lumo-font-family);
-    -webkit-font-smoothing: antialiased;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* ── Vaadin buttons ─────────────────────────────────────────── */
-vaadin-button[theme~="primary"] {
-    background-color: var(--lumo-primary-color);
-    border-radius: var(--lumo-border-radius-m);
-    font-weight: 500;
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── Vaadin text-field / combo-box ──────────────────────────── */
-vaadin-text-field,
-vaadin-combo-box,
-vaadin-email-field,
-vaadin-password-field {
-    --lumo-text-field-size: 2.25rem;
+vaadin-app-layout::part(content) {
+  background: var(--paper);
 }
 
-/* ── Grid polish ────────────────────────────────────────────── */
-vaadin-grid {
-    border-radius: var(--lumo-border-radius-m);
-    box-shadow: var(--lumo-box-shadow-s);
-    --lumo-base-color: #ffffff;
+.page-content {
+  max-width: var(--page-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(20px, 2.2vw, 34px) clamp(16px, 2.4vw, 32px) 44px;
+  box-sizing: border-box;
 }
 
-vaadin-grid::part(header-cell) {
-    background: #f8f9fb;
-    font-weight: 600;
-    font-size: var(--lumo-font-size-s);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--lumo-contrast-60pct);
+vaadin-text-field::part(input-field),
+vaadin-email-field::part(input-field),
+vaadin-password-field::part(input-field),
+vaadin-text-area::part(input-field),
+vaadin-number-field::part(input-field),
+vaadin-integer-field::part(input-field),
+vaadin-date-picker::part(input-field),
+vaadin-date-time-picker::part(input-field),
+vaadin-combo-box::part(input-field),
+vaadin-select::part(text-field) {
+  border: 1px solid var(--line2);
+  border-radius: var(--radius);
+  background: var(--paper);
 }
 
-vaadin-grid::part(row):hover vaadin-grid-cell-content {
-    background-color: var(--lumo-primary-color-10pct);
+@media (min-width: 1400px) {
+  :root,
+  html[data-theme='light'],
+  html[data-theme='dark'] {
+    --sidebar-w: 236px;
+    --page-max: 1420px;
+  }
+}
+
+@media (min-width: 1800px) {
+  :root,
+  html[data-theme='light'],
+  html[data-theme='dark'] {
+    --sidebar-w: 248px;
+    --page-max: 1660px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .page-content {
+    padding: 22px 20px 36px;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-content {
+    padding: 18px;
+  }
 }

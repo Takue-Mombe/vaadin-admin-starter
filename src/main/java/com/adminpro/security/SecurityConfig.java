@@ -1,22 +1,20 @@
 package com.adminpro.security;
 
+import com.adminpro.ui.views.login.LoginView;
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
- * MVP security configuration: all routes are publicly accessible.
+ * Basic auth security configuration.
  *
- * VaadinWebSecurity already permits all Vaadin-internal endpoints and
- * handles the anyRequest rule — we must NOT add a second anyRequest call.
- *
- * Phase 2 upgrade path:
- *   1. Call setLoginView(http, LoginView.class) to enable the login page.
- *   2. Add @RolesAllowed("ADMIN") to UsersView.
- *   3. Add a UserDetailsService bean backed by UserRepository.
- *   4. Remove the permitAll override below.
+ * Every application route requires authentication. Credentials are backed by
+ * app_user records via AppUserDetailsService.
  */
 @Configuration
 @EnableWebSecurity
@@ -29,16 +27,25 @@ public class SecurityConfig extends VaadinWebSecurity {
             headers.frameOptions(frame -> frame.sameOrigin())
         );
 
-        // Permit H2 console path before Vaadin takes over
-        http.authorizeHttpRequests(auth ->
-            auth.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+        // H2 console uses standard requests and should skip CSRF tokens.
+        http.csrf(csrf ->
+            csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
         );
 
-        // Call Vaadin's base configuration — it adds its own anyRequest handler.
-        // For MVP (no login) we override requestCache and set anonymous access.
+        // H2 console is restricted to ADMIN users.
+        http.authorizeHttpRequests(auth ->
+            auth.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).hasRole("ADMIN")
+        );
+
+        // Let Vaadin wire up its internal endpoints (UIDL, push, static resources).
         super.configure(http);
 
-        // Disable redirect-to-login: allow all requests anonymously for the MVP demo.
-        http.anonymous(anon -> {});
+        // Browser login page flow.
+        setLoginView(http, LoginView.class);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

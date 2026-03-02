@@ -1,137 +1,171 @@
-/* ============================================================
-   Admin Pro Kit — Sidebar component styles
-   ============================================================ */
-
-/* ── App-layout drawer ──────────────────────────────────────── */
 vaadin-app-layout::part(drawer) {
-    background: #1e1b4b;   /* deep indigo */
-    border-right: none;
-    width: var(--adminpro-sidebar-width);
-    box-shadow: 2px 0 8px rgba(0,0,0,0.12);
-    padding-top: 0;
+  width: var(--sidebar-w);
+  background: var(--card);
+  border-right: 1px solid var(--line);
+  padding: 0;
 }
 
-/* ── Brand / logo area ──────────────────────────────────────── */
+.arc-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
 .sidebar-brand {
-    display: flex;
-    align-items: center;
-    gap: var(--lumo-space-s);
-    padding: var(--lumo-space-l) var(--lumo-space-m);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    margin-bottom: var(--lumo-space-s);
+  height: var(--bar-h);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
 }
 
 .sidebar-brand__icon {
-    width: 36px;
-    height: 36px;
-    background: var(--lumo-primary-color);
-    border-radius: var(--lumo-border-radius-m);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 1.1rem;
-    flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--spot);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--spot);
+  font-family: var(--font-serif);
+  font-size: 14px;
+  letter-spacing: -0.4px;
+  flex-shrink: 0;
 }
 
 .sidebar-brand__name {
-    font-size: var(--lumo-font-size-l);
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.01em;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 16px;
+  letter-spacing: -0.3px;
 }
 
 .sidebar-brand__tagline {
-    font-size: var(--lumo-font-size-s);
-    color: rgba(255,255,255,0.45);
-    line-height: 1;
+  color: var(--ink3);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-/* ── Nav section labels ──────────────────────────────────────── */
+.nav-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 10px 6px;
+}
+
+.nav-group {
+  margin-bottom: 6px;
+}
+
 .nav-section-label {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.35);
-    padding: var(--lumo-space-m) var(--lumo-space-m) var(--lumo-space-xs);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  padding: 10px 10px 4px;
 }
 
-/* ── Nav items ──────────────────────────────────────────────── */
 .nav-item {
-    display: flex;
-    align-items: center;
-    gap: var(--lumo-space-s);
-    padding: 0.6rem var(--lumo-space-m);
-    margin: 2px var(--lumo-space-s);
-    border-radius: var(--lumo-border-radius-m);
-    cursor: pointer;
-    text-decoration: none;
-    color: rgba(255,255,255,0.7);
-    font-size: var(--lumo-font-size-m);
-    font-weight: 400;
-    transition: background 0.15s ease, color 0.15s ease;
-    user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  margin: 0;
+  border-radius: var(--radius);
+  color: var(--ink2);
+  text-decoration: none;
+  font-size: 13px;
+  transition: background var(--trans), color var(--trans);
 }
 
 .nav-item:hover {
-    background: rgba(255,255,255,0.08);
-    color: #ffffff;
+  background: var(--spot-bg);
+  color: var(--ink);
 }
 
 .nav-item.active {
-    background: var(--lumo-primary-color);
-    color: #ffffff;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(79,70,229,0.4);
+  background: var(--spot-bg);
+  color: var(--spot);
+  font-weight: 500;
 }
 
-.nav-item vaadin-icon {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    opacity: 0.85;
+.nav-link__icon {
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  flex-shrink: 0;
 }
 
-.nav-item.active vaadin-icon {
-    opacity: 1;
+.nav-link__icon vaadin-icon {
+  width: 15px;
+  height: 15px;
 }
 
-/* ── Sidebar footer ─────────────────────────────────────────── */
+.nav-link__text {
+  white-space: nowrap;
+}
+
+.nav-pip {
+  margin-left: auto;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--spot);
+  background: var(--spot-bg);
+  padding: 1px 7px;
+  border-radius: 999px;
+}
+
 .sidebar-footer {
-    margin-top: auto;
-    padding: var(--lumo-space-m);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    display: flex;
-    align-items: center;
-    gap: var(--lumo-space-s);
+  padding: 10px 6px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 9px;
 }
 
 .sidebar-footer__avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: var(--lumo-primary-color);
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: var(--lumo-font-size-s);
-    flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--spot-dim);
+  border: 1px solid var(--line2);
+  color: var(--spot);
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .sidebar-footer__name {
-    font-size: var(--lumo-font-size-s);
-    font-weight: 500;
-    color: rgba(255,255,255,0.85);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 500;
 }
 
 .sidebar-footer__role {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.4);
+  color: var(--ink3);
+  font-size: 11px;
+}
+
+@media (max-width: 1024px) {
+  vaadin-app-layout::part(drawer) {
+    width: min(82vw, 300px);
+  }
+}
+
+@media (max-width: 700px) {
+  vaadin-app-layout::part(drawer) {
+    width: min(88vw, 280px);
+  }
 }
